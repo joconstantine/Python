@@ -3,14 +3,23 @@ def multiply(x, y):
     return result
 
 
-answer = multiply(10.5, 4)
-print(answer)
+def is_palindrome(string):
+    # backwards = string[::-1]
+    # return backwards == string
+    return string[::-1].casefold() == string.casefold()
 
-forty_two = multiply(6, 7)
-print(forty_two)
 
-print()
+def palindrome_sentence(sentence):
+    char_list = list(sentence)
+    for index in range(len(char_list) - 1, -1, -1):
+        if not char_list[index].isalnum():
+            del char_list[index]
 
-for val in range(1, 5):
-    two_times = multiply(2, val)
-    print(two_times)
+    return is_palindrome("".join(char_list))
+
+
+word = input("Please enter a word to check: ")
+if palindrome_sentence(word):
+    print("'{}' is a palindrome".format(word))
+else:
+    print("'{}' is not a palindrome".format(word))
