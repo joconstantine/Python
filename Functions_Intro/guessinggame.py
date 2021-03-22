@@ -1,7 +1,7 @@
 import random
 
 
-def guess_integer(prompt):
+def get_integer(prompt):
     """
     Get an integer from Standard Input (stdin).
 
@@ -19,6 +19,8 @@ def guess_integer(prompt):
         print("{0} is not a valid number.".format(temp))
 
 
+help(get_integer)
+
 highest = 1000
 answer = random.randint(1, highest)
 # print(answer)    # TODO: Remove after testing
@@ -26,7 +28,7 @@ guess = 0   # initialise to any number that doesn't equal to the answer
 print("Please guess a number between 1 and {}: ".format(highest))
 
 while guess != answer:
-    guess = guess_integer(": ")
+    guess = get_integer(": ")
 
     if guess == answer:
         print("Well done, you guessed it")
