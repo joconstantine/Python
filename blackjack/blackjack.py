@@ -30,7 +30,7 @@ def load_images(card_images):
             card_images.append((10, image,))
 
 
-def deal_card(frame):
+def _deal_card(frame):
     # pop the next card off the top of the deck
     next_card = deck.pop(0)
     # add the card back to the deck
@@ -62,7 +62,7 @@ def score_hand(hand):
 def deal_dealer():
     dealer_score = score_hand(dealer_hand)
     while 0 < dealer_score < 17:
-        dealer_hand.append(deal_card(dealer_card_frame))
+        dealer_hand.append(_deal_card(dealer_card_frame))
         dealer_score = score_hand(dealer_hand)
         dealer_score_label.set(dealer_score)
 
@@ -78,12 +78,19 @@ def deal_dealer():
 
 
 def deal_player():
-    player_hand.append(deal_card(player_card_frame))
+    player_hand.append(_deal_card(player_card_frame))
     player_score = score_hand(player_hand)
+    dealer_score = score_hand(dealer_hand)
 
     player_score_label.set(player_score)
     if player_score > 21:
-        result_text.set("Dealer wins")
+        result_text.set("Dealer wins!")
+    elif dealer_score > 21 or dealer_score < player_score:
+        result_text.set("Player wins!")
+    elif dealer_score > player_score:
+        result_text.set("Dealer wins!")
+    else:
+        result_text.set("Draw!")
 
     # global player_score
     # global player_ace
@@ -118,14 +125,23 @@ def reset_game():
     for widget in player_card_frame.winfo_children():
         widget.destroy()
 
+    initial_deal()
+
+
+def initial_deal():
     deal_player()
-    dealer_hand.append(deal_card(dealer_card_frame))
+    dealer_hand.append(_deal_card(dealer_card_frame))
     dealer_score_label.set(score_hand(dealer_hand))
     deal_player()
 
 
 def shuffle():
     random.shuffle(deck)
+
+
+def play():
+    initial_deal()
+    mainWindow.mainloop()
 
 
 mainWindow = tkinter.Tk()
@@ -174,7 +190,7 @@ shuffle_button.grid(row=0, column=3)
 # load cards
 cards = []
 load_images(cards)
-print(cards)
+# print(cards)
 # create a new deck of cards and shuffle
 deck = list(cards) + list(cards) + list(cards)
 shuffle()
@@ -183,6 +199,5 @@ shuffle()
 dealer_hand = []
 player_hand = []
 
-reset_game()
-
-mainWindow.mainloop()
+if __name__ == "__main__":
+    play()
