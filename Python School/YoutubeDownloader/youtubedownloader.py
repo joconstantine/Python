@@ -42,6 +42,7 @@ class Application:
         self.fileLocationLabel.grid()
         self.FolderName = None
         self.matchYoutubeLink = None
+        self.app = None
 
         self.youtubeChooseLabel = tkinter.Label(self.root, text="Choose the Download Type", font=("Variety", 30))
         self.youtubeChooseLabel.grid()
@@ -74,14 +75,46 @@ class Application:
         self.matchYoutubeLink = re.match("^https://www.youtube.com/.", self.youtubeEntryVar.get())
         if not self.matchYoutubeLink:
             self.youtubeEntryError.config(text="Invalid YouTube Link", fg='red')
-        elif not self.open_directory():
+        elif not self.FolderName:
             self.fileLocationLabel.config(text="Please choose a Directory", fg='red')
-        elif self.matchYoutubeLink and self.fileLocationLabel:
+        elif self.matchYoutubeLink and self.FolderName:
             self.download_window()
 
     def download_window(self):
         self.newWindow = tkinter.Toplevel(self.root)
         self.root.withdraw()
+        self.newWindow.state('zoomed')
+        self.newWindow.grid_rowconfigure(0, weight=0)
+        self.newWindow.grid_columnconfigure(0, weight=1)
+
+        self.app = SecondApp(self.newWindow, self.youtubeEntryVar.get(), self.FolderName, self.choicesVar.get())
+
+
+class SecondApp:
+    def __init__(self, download_window, youtube_link, folder_name, choices):
+        self.downloadWindow = download_window
+        self.youtubeLink = youtube_link
+        self.folderName = folder_name
+        self.choices = choices
+
+        self.yt = YouTube(self.youtubeLink)
+
+        if choices == "1":  # 1 - audio part
+            self.video_type = self.yt.streams.filter(only_audio=True).first()   # to download the first audio type
+            self.maxFileSize = self.video_type.filesize  # max size of the file
+        elif choices == "2":    # 2 - video as well
+            self.video_type = self.yt.streams.first()   # to download the first video format (e.g. 1080px)
+            self.maxFileSize = self.video_type.filesize
+
+        self.loadingLabel = tkinter.Label(self.downloadWindow, text="Downloading in Progress", font=("Small Fonts", 40))
+        self.loadingLabel.grid(pady=(100, 0))
+
+        self.loadingPercent = tkinter.Label(self.downloadWindow, text="0", fg='green', font=("Agency Fb", 40))
+        self.loadingPercent.grid(pady=(50, 0))
+
+        self.progressBar = ttk.Progressbar(self.downloadWindow, length=500, orient='horizontal', mode='indeterminate')
+        self.progressBar.grid(pady=(50, 0))
+        self.progressBar.start()
 
 
 if __name__ == '__main__':
