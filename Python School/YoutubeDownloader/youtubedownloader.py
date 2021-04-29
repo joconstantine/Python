@@ -96,14 +96,18 @@ class SecondApp:
         self.youtubeLink = youtube_link
         self.folderName = folder_name
         self.choices = choices
+        self.percentCount = 0
+        self.downloadFinished = None
+        self.downloadFileName = None
+        self.downloadFileSize = None
 
         self.yt = YouTube(self.youtubeLink)
 
         if choices == "1":  # 1 - audio part
-            self.video_type = self.yt.streams.filter(only_audio=True).first()   # to download the first audio type
+            self.video_type = self.yt.streams.filter(only_audio=True).first()  # to download the first audio type
             self.maxFileSize = self.video_type.filesize  # max size of the file
-        elif choices == "2":    # 2 - video as well
-            self.video_type = self.yt.streams.first()   # to download the first video format (e.g. 1080px)
+        elif choices == "2":  # 2 - video as well
+            self.video_type = self.yt.streams.first()  # to download the first video format (e.g. 1080px)
             self.maxFileSize = self.video_type.filesize
 
         self.loadingLabel = tkinter.Label(self.downloadWindow, text="Downloading in Progress", font=("Small Fonts", 40))
@@ -115,6 +119,39 @@ class SecondApp:
         self.progressBar = ttk.Progressbar(self.downloadWindow, length=500, orient='horizontal', mode='indeterminate')
         self.progressBar.grid(pady=(50, 0))
         self.progressBar.start()
+
+        # Thread to keep track of progress
+        threading.Thread(target=self.yt.register_on_progress_callback(self.show_progress)).start()
+
+        # Thread to download the file
+        threading.Thread(target=self.download_file).start()
+
+    def download_file(self):
+        if self.choices == "1":
+            self.yt.streams.filter(only_audio=True).first().download(self.folderName)
+        elif self.choices == "2":
+            self.yt.streams.first().download(self.folderName)
+
+    def show_progress(self, stream=None, chunk=None, bytes_remaining=None):
+        self.percentCount = float("%0.2f" % (100 - (100 * (bytes_remaining / self.maxFileSize))))
+        self.loadingPercent.config(text=self.percentCount)
+
+        if self.percentCount < 100:
+            pass
+        else:
+            self.progressBar.stop()
+            self.loadingLabel.grid_forget()
+            self.progressBar.grid_forget()
+
+            self.downloadFinished = tkinter.Label(self.downloadWindow, text="Download Finished")
+            self.downloadFinished.grid(pady=(150, 0))
+
+            self.downloadFileName = tkinter.Label(self.downloadWindow, text=self.yt.title, font=("Terminal", 30))
+            self.downloadFileName.grid(pady=(50, 0))
+
+            MB = float("%0.2f" % (self.maxFileSize / 1000000))
+            self.downloadFileSize = tkinter.Label(self.downloadWindow, text=str(MB), font=("Agency Fb", 30))
+            self.downloadFileSize.grid(pady=(50, 0))
 
 
 if __name__ == '__main__':
