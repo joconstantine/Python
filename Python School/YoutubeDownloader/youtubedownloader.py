@@ -107,7 +107,7 @@ class SecondApp:
             self.video_type = self.yt.streams.filter(only_audio=True).first()  # to download the first audio type
             self.maxFileSize = self.video_type.filesize  # max size of the file
         elif choices == "2":  # 2 - video as well
-            self.video_type = self.yt.streams.first()  # to download the first video format (e.g. 1080px)
+            self.video_type = self.yt.streams.get_highest_resolution()  # to download the first video format (e.g. 1080px)
             self.maxFileSize = self.video_type.filesize
 
         self.loadingLabel = tkinter.Label(self.downloadWindow, text="Downloading in Progress", font=("Small Fonts", 40))
@@ -130,7 +130,7 @@ class SecondApp:
         if self.choices == "1":
             self.yt.streams.filter(only_audio=True).first().download(self.folderName)
         elif self.choices == "2":
-            self.yt.streams.first().download(self.folderName)
+            self.yt.streams.get_highest_resolution().download(self.folderName)
 
     def show_progress(self, stream=None, chunk=None, bytes_remaining=None):
         self.percentCount = float("%0.2f" % (100 - (100 * (bytes_remaining / self.maxFileSize))))
