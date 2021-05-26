@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+    My Blog
+{% endblock %}
+
+{% block css_files %}
+    <link rel="stylesheet" href="{% static 'blog/index.css'%}">
+    <link rel="stylesheet" href="{% static 'blog/post.css'%}">
+{% endblock %}
+
+{% block content %}
+    <section id="welcome">
+        <header>
+            <img src="{% static 'blog/images/const.jpg' %}" alt="Jo Constantine - The Author of This Blog">
+            <h2>JO CONSTANTINE'S BLOG</h2>
+        </header>
+        <p>Hi, I am Jo Constantine and I love everyone!</p>
+    </section>
+    
+    <section id="latest-posts">
+        <h2>My Latest Poems</h2>
+        <ul>
+            {% for post in posts %}
+                {% include 'blog/includes/post.html' %}
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section id="about">
+        <h2>What I Do</h2>
+        <p>I love my job, my family my friends and my life!</p>
+        <p>My goal is to keep growing as a developer and a person.</p>
+    </section>
+{% endblock content %}

@@ -1,0 +1,14 @@
+{
+    "python.pythonPath": "c:\\Users\\Jo Constantine Ng\\venv\\django_project\\Scripts\\python.exe",
+    "python.languageServer": "Pylance",
+    "python.terminal.activateEnvironment": true,
+    "files.associations": {
+        "**/*.html": "html",
+        "**/templates/**/*.html": "django-html",
+        "**/templates/**/*": "django-txt",
+        "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    },
+    "emmet.includeLanguages": {
+        "django-html": "html"
+    },
+}
