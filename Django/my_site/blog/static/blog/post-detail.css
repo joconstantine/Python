@@ -56,15 +56,37 @@ body {
   #summary time {
     font-weight: bold;
   }
-  
+
+  #summary #read-later {
+    margin: 2rem 0;
+  }
+
+  #read-later button {
+    background-color: transparent;
+    border: 1px solid white;
+    padding: 0.5rem 2rem;
+    font: inherit;
+    color: white;
+    cursor: pointer;
+  }
+
+  #read-later button:hover,
+  #read-later button:active {
+    background-color: white;
+    color: #390281;
+  }
+
   main {
-    width: 90%;
+    width: 50%;
     max-width: 90rem;
     margin: 3rem auto;
-    background-color: white;
+    background-color: wheat;
     padding: 1rem;
     border-radius: 12px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    font-size: 30px;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
   }
 
   .tag {
@@ -73,3 +95,115 @@ body {
     padding: 0.5rem 1rem;
     border-radius: 12px;
   }
+
+  #comment_form {
+    margin: 3rem auto;
+    width: 90%;
+    max-width: 40rem;
+    border-radius: 12px;
+    background-color: wheat;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    padding: 1rem;
+  }
+
+  
+  #comment_form button {
+    font: inherit;
+    background-color: #390281;
+    color:white;
+    border: 1px solid #390281;
+    padding: 0.5rem 1.5rem;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  #comment_form button:hover,
+  #comment_form button:active {
+    background-color: #5403bd;
+    border-color: #4f4f4f;
+  }
+
+  .form-control {
+    margin-bottom: 1rem;
+  }
+
+  .form-control label {
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+
+  .form-control input,
+  .form-control textarea {
+    display: block;
+    width: 100%;
+    margin: 0.25rem;
+    font: inherit;
+    padding:25px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+  }
+
+.errorlist {
+  list-style: none;
+  margin: 0.5rem 0;
+  padding: 0;
+  color: rgb(221, 41, 41)
+}
+
+.invalid label {
+  color: rgb(221, 41, 41)
+}
+
+.invalid input,
+.invalid textarea {
+  border-color: rgb(221, 41, 41);
+  background-color: rgb(255, 218, 218);
+}
+
+#alert {
+  margin: 8rem auto auto auto;
+  border: 1px solid rgb(221, 41, 41);
+  background-color: rgb(255, 218, 218);
+  padding: 1rem;
+  width: 90%;
+  max-width: 40rem;
+}
+
+#alert a {
+  text-decoration: none;
+  border: 1px solid rgb(221, 41, 41);
+  background-color: rgb(221, 41, 41);
+  color:white;
+  padding: 0.25rem 1.5rem;
+  border-radius: 6px;
+}
+
+#comments {
+  margin: 3rem auto;
+  width: 90%;
+  max-width: 60rem;
+  border-radius: 12px;
+  background-color: wheat;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  padding: 1rem 2rem;
+}
+
+#comments ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+#comments li {
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #ccc;
+}
+
+#comments li:last-of-type {
+  border-bottom: none;
+}
+
+#comments h2 {
+  color: #464646;
+}
