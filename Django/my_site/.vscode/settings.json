@@ -1,6 +1,7 @@
 {
     "python.pythonPath": "c:\\Users\\Jo Constantine Ng\\venv\\django_project\\Scripts\\python.exe",
     "python.languageServer": "Pylance",
+    "python.envFile": "${workspaceFolder}/.env",
     "python.terminal.activateEnvironment": true,
     "files.associations": {
         "**/*.html": "html",
