@@ -1,5 +1,5 @@
 from django.contrib import admin
-from django.utils.text import slugify
+from django.utils.text import ify
 
 from .models import Book, Author, Address, Country
 
