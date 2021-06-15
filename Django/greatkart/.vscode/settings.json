@@ -1,3 +1,4 @@
 {
-    "python.pythonPath": "c:\\Users\\Jo Constantine Ng\\venv\\django_project\\Scripts\\python.exe"
+    "python.pythonPath": "c:\\Users\\constantine.VRLDEVDM1A\\venv\\django_project\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
 }
