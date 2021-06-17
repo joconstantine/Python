@@ -18,6 +18,9 @@ class CartItem(models.Model):
     quantity = models.IntegerField()
     is_active = models.BooleanField(default=True)
 
+    def sub_total(self):
+        return self.quantity * self.product.price
+
     class Meta:
         verbose_name = "Cart Item"
         verbose_name_plural = "Cart Items"
