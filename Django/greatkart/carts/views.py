@@ -57,6 +57,8 @@ def remove_cart_item(request, product_id):
 
 
 def cart(request, total=0, quantity=0, cart_items=None):
+    tax = 0
+    grand_total = 0
     try:
         cart = Cart.objects.get(cart_id=_cart_id(request))
         cart_items = CartItem.objects.filter(cart=cart, is_active=True)
@@ -64,7 +66,7 @@ def cart(request, total=0, quantity=0, cart_items=None):
             total += cart_item.product.price * cart_item.quantity
             quantity += cart_item.quantity
         tax = (2 * total) / 100
-        grant_total = total + tax
+        grand_total = total + tax
     except ObjectDoesNotExist:
         pass  # just ignore
 
@@ -73,6 +75,6 @@ def cart(request, total=0, quantity=0, cart_items=None):
         "quantity": quantity,
         "cart_items": cart_items,
         "tax": tax,
-        "grand_total": grant_total,
+        "grand_total": grand_total,
     }
     return render(request, "store/cart.html", context)
