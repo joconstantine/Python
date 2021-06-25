@@ -29,26 +29,26 @@
 
 
 					<hr>
-				{% if single_product.variation_set.colors.length > 0 %}
+				{% if single_product.variations.colors|length > 0 %}
 					<div class="row">
 						<div class="item-option-select">
 							<h6>Choose Color</h6>
 							<select name="color" class="form-control" required>
 									<option value="" disabled selected>Select</option>
-								{% for var in single_product.variation_set.colors %}
+								{% for var in single_product.variations.colors %}
 									<option value="{{ var.variation_value|lower }}">{{ var.variation_value|capfirst }}</option>
 								{% endfor %}
 							</select>
 						</div>
 					</div>
 				{% endif %}
-				{% if single_product.variation_set.sizes.length > 0 %}
+				{% if single_product.variations.sizes|length > 0 %}
 					<div class="row">
 						<div class="item-option-select">
 							<h6>Select Size</h6>
 							<select name="size" class="form-control">
 									<option value="" disabled selected>Select</option>
-								{% for var in single_product.variation_set.sizes %}
+								{% for var in single_product.variations.sizes %}
 									<option value="{{ var.variation_value|lower }}">{{ var.variation_value|capfirst }}</option>
 								{% endfor %}
 							</select>
