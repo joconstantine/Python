@@ -7,7 +7,7 @@
 <div class="container">
 
 <!-- ============================ COMPONENT 1 ================================= -->
-<form action="" method="POST">
+<form action="{% url 'place_order' %}" method="POST">
 <div class="row">
 	<aside class="col-lg-6">
 		<div class="card">
@@ -30,8 +30,8 @@
                             <input type="email" id="email" name="email" class="form-control" required>
                         </div>
                         <div class="col form-group">
-                            <label for="phone_number">Phone Number</label>
-                            <input type="text" id="phone_number" name="phone_number" class="form-control" required>
+                            <label for="phone">Phone Number</label>
+                            <input type="text" id="phone" name="phone" class="form-control" required>
                         </div>
                     </div>
                     <div class="form-row">
