@@ -5,7 +5,7 @@ from django.core.paginator import Paginator
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 
-from .models import Product, ReviewRating
+from .models import Product, ProductGallery, ReviewRating
 from orders.models import OrderProduct
 from .forms import ReviewForm
 from category.models import Category
@@ -60,11 +60,15 @@ def product_detail(request, category_slug, product_slug):
     # Get review info
     reviews = ReviewRating.objects.filter(product=single_product, status=True)
 
+    # Get the product gallery
+    product_gallery = ProductGallery.objects.filter(product=single_product)
+
     context = {
         "single_product": single_product,
         "in_cart": in_cart,
         "ordered_product": ordered_product,
         "reviews": reviews,
+        "product_gallery": product_gallery,
     }
     return render(request, "store/product-detail.html", context)
 
