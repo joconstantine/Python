@@ -2,6 +2,7 @@ from django.http.response import JsonResponse
 from django.shortcuts import redirect, render
 import datetime
 import json
+from smtplib import SMTPAuthenticationError
 
 from django.core.mail.message import EmailMessage
 from django.template.loader import render_to_string
@@ -71,7 +72,10 @@ def payments(request):
     )
     to_email = request.user.email
     send_email = EmailMessage(mail_subject, message, to=[to_email])
-    send_email.send()
+    try:
+        send_email.send()
+    except SMTPAuthenticationError:
+        pass
 
     # Send order number and transaction id back to
     res_data = {"order_number": order.order_number, "transID": payment.payment_id}
